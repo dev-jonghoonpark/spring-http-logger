@@ -8,7 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 
-class BufferingClientHttpResponseWrapper implements ClientHttpResponse {
+public class BufferingClientHttpResponseWrapper implements ClientHttpResponse {
 
 	private final ClientHttpResponse response;
 
@@ -21,27 +21,27 @@ class BufferingClientHttpResponseWrapper implements ClientHttpResponse {
 
 	@Override
 	public InputStream getBody() {
-		return new ByteArrayInputStream(body);
+		return new ByteArrayInputStream(this.body);
 	}
 
 	@Override
 	public HttpStatusCode getStatusCode() throws IOException {
-		return response.getStatusCode();
+		return this.response.getStatusCode();
 	}
 
 	@Override
 	public HttpHeaders getHeaders() {
-		return response.getHeaders();
+		return this.response.getHeaders();
 	}
 
 	@Override
 	public void close() {
-		response.close();
+		this.response.close();
 	}
 
 	@Override
 	public String getStatusText() throws IOException {
-		return response.getStatusText();
+		return this.response.getStatusText();
 	}
 
 }

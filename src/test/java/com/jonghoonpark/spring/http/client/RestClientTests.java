@@ -1,4 +1,4 @@
-package com.jonghoonpark.spring.http.interceptor;
+package com.jonghoonpark.spring.http.client;
 
 import java.util.List;
 
@@ -11,12 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestClient;
 
+import com.jonghoonpark.spring.http.interceptor.ClientLoggerRequestInterceptor;
 import com.jonghoonpark.spring.util.LogCaptureAppender;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RestClientTest {
+public class RestClientTests {
 
 	@LocalServerPort
 	int randomServerPort;
@@ -31,7 +32,7 @@ public class RestClientTest {
 		RestClient restClient = RestClient.builder().requestInterceptor(new ClientLoggerRequestInterceptor()).build();
 
 		restClient.post()
-			.uri(String.format("http://localhost:%s/echo", randomServerPort))
+			.uri(String.format("http://localhost:%s/echo", this.randomServerPort))
 			.body("TEST")
 			.retrieve()
 			.toBodilessEntity();

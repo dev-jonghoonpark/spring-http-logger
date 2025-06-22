@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 
-public class RequestLoggingExchangeFilterFunction {
+public final class RequestLoggingExchangeFilterFunction {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestLoggingExchangeFilterFunction.class);
+
+	private RequestLoggingExchangeFilterFunction() {
+	}
 
 	public static ExchangeFilterFunction logRequest() {
 		return (clientRequest, next) -> {

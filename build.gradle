@@ -41,6 +41,7 @@ dependencies {
     implementation 'org.springframework:spring-webmvc:6.2.8'
     implementation 'org.slf4j:slf4j-api:2.0.17'
     implementation 'io.projectreactor:reactor-core:3.7.6'
+    implementation 'io.projectreactor.netty:reactor-netty:1.2.7'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -48,7 +49,6 @@ dependencies {
     testCompileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     testImplementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.42'
     testImplementation 'ch.qos.logback:logback-classic:1.5.18'
-    testImplementation 'io.projectreactor.netty:reactor-netty:1.2.7'
     testImplementation 'io.projectreactor:reactor-test:3.7.6'
 }
 

@@ -1,3 +1,7 @@
+# spring-http-logger
+
+This library assists logging for Spring HTTP clients (RestClient, WebClient).
+
 ## How to use
 
 ### http client
@@ -14,7 +18,7 @@ HttpClient httpClient = HttpClient.create();
 ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
 
 WebClient webClient = WebClient.builder()
-    .clientConnector(new LoggingClientHttpConnectorDecorator(connector))
+    .clientConnector(new LoggingClientHttpConnector(connector))
     .filter(logRequest())
     .build();
 ```

@@ -1,23 +1,20 @@
-package com.jonghoonpark.spring.http.interceptor;
+package com.jonghoonpark.spring.http.client;
 
 import java.util.List;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import com.jonghoonpark.spring.http.interceptor.reactive.LoggingClientHttpConnector;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClient;
 import reactor.test.StepVerifier;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.jonghoonpark.spring.http.interceptor.reactive.LoggingClientHttpConnector;
 import com.jonghoonpark.spring.http.interceptor.reactive.LoggingClientHttpResponse;
 import com.jonghoonpark.spring.http.interceptor.reactive.RequestLoggingExchangeFilterFunction;
 import com.jonghoonpark.spring.util.LogCaptureAppender;
@@ -25,7 +22,7 @@ import com.jonghoonpark.spring.util.LogCaptureAppender;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class WebClientTest {
+public class WebClientTests {
 
 	@LocalServerPort
 	int randomServerPort;
@@ -42,16 +39,13 @@ public class WebClientTest {
 		requestLogCaptureAppender.start();
 		requestLogger.addAppender(requestLogCaptureAppender);
 
-		HttpClient httpClient = HttpClient.create();
-		ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
-
 		WebClient webClient = WebClient.builder()
-			.clientConnector(new LoggingClientHttpConnector(connector))
+			.clientConnector(new LoggingClientHttpConnector())
 			.filter(RequestLoggingExchangeFilterFunction.logRequest())
 			.build();
 
 		Mono<ResponseEntity<Void>> responseMono = webClient.post()
-			.uri(String.format("http://localhost:%s/echo", randomServerPort))
+			.uri(String.format("http://localhost:%s/echo", this.randomServerPort))
 			.bodyValue("TEST")
 			.retrieve()
 			.toBodilessEntity();
