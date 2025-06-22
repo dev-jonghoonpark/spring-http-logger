@@ -1,0 +1,64 @@
+group = 'com.jonghoonpark'
+version = '1.0.0'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.jonghoonpark'
+            artifactId = 'spring-http-logger'
+
+            from components.java
+
+            pom {
+                name = "spring-http-logger"
+                description = "This library assists logging for Spring HTTP clients (RestClient, WebClient)."
+                inceptionYear = "2025"
+                url = "https://github.com/dev-jonghoonpark/spring-http-logger"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "dev-jonghoonpark"
+                        name = "Jonghoon Park"
+                        email = "dev@jonghoonpark.com"
+                        url = "https://github.com/dev-jonghoonpark"
+                    }
+                }
+                scm {
+                    url = "https://github.com/dev-jonghoonpark/spring-http-logger"
+                    connection = "scm:git:git://github.com/jonghoonpark/spring-http-logger.git"
+                    developerConnection = "scm:git:ssh://git@github.com:dev-jonghoonpark/spring-http-logger.git"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        active = 'ALWAYS'
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('build/staging-deploy')
+                }
+            }
+        }
+    }
+}
