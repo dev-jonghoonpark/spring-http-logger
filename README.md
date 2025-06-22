@@ -4,13 +4,13 @@ This library assists logging for Spring HTTP clients (RestClient, WebClient).
 
 ## Download
 
-### gradle
+### Gradle
 
 ```groovy
 implementation 'com.jonghoonpark:spring-http-logger:1.0.0'
 ```
 
-### maven
+### Maven
 
 ```xml
 <dependency>
@@ -22,7 +22,7 @@ implementation 'com.jonghoonpark:spring-http-logger:1.0.0'
 
 ## How to use
 
-### http client
+### RestClient
 
 Use `ClientLoggerRequestInterceptor`.
 
@@ -32,7 +32,7 @@ RestClient restClient = RestClient.builder()
     .build();
 ```
 
-### web client (reactive)
+### WebClient (reactive)
 
 Use `LoggingClientHttpConnector` and `RequestLoggingExchangeFilterFunction`.
 
@@ -43,17 +43,22 @@ WebClient webClient = WebClient.builder()
     .build();
 ```
 
-### logging config
+### Examples in Action
 
-Request/response bodies are configured to be logged at the INFO level.
-If you also want to see request/response headers, set the logging level to DEBUG.
+![request-logging](https://raw.githubusercontent.com/dev-jonghoonpark/spring-http-logger/refs/heads/main/docs/request-logging.jpg)
+
+![response-logging](https://raw.githubusercontent.com/dev-jonghoonpark/spring-http-logger/refs/heads/main/docs/response-logging.jpg)
+
+### Logging config
+
+`request/response bodies` are configured to be logged at the `INFO` level.
+If you also want to see `request/response headers`, set the logging level to `DEBUG`.
 
 ```
 logging.level.com.jonghoonpark=debug
 ```
 
 ## reference
-- 
 - Portions of the code are adapted from:
   - rest client: https://github.com/spring-projects/spring-ai/issues/883#issuecomment-2739772323
   - web client (reactive): https://stackoverflow.com/a/73154616/29672082
