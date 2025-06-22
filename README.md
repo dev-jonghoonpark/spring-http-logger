@@ -6,6 +6,8 @@ This library assists logging for Spring HTTP clients (RestClient, WebClient).
 
 ### http client
 
+Use `ClientLoggerRequestInterceptor`.
+
 ```rest client
 RestClient restClient = RestClient.builder()
     .requestInterceptor(new ClientLoggerRequestInterceptor());
@@ -13,13 +15,12 @@ RestClient restClient = RestClient.builder()
 
 ### web client (reactive)
 
-```java
-HttpClient httpClient = HttpClient.create();
-ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
+Use `LoggingClientHttpConnector` and `RequestLoggingExchangeFilterFunction`.
 
+```java
 WebClient webClient = WebClient.builder()
-    .clientConnector(new LoggingClientHttpConnector(connector))
-    .filter(logRequest())
+    .clientConnector(new LoggingClientHttpConnector())
+    .filter(RequestLoggingExchangeFilterFunction.logRequest())
     .build();
 ```
 
