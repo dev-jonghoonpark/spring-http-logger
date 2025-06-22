@@ -28,7 +28,7 @@ public class LoggingClientHttpResponse extends ClientHttpResponseDecorator {
 			String responseBody = buffers.stream()
 				.map(buffer -> buffer.toString(StandardCharsets.UTF_8))
 				.collect(Collectors.joining());
-			logger.info("Response body: {}", responseBody);
+			logger.info("Response body: {}", responseBody.replaceAll("\\s+", " "));
 			return buffers;
 		}).flatMapMany(Flux::fromIterable);
 	}

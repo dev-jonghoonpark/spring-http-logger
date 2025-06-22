@@ -23,6 +23,18 @@ checkstyle {
 group = 'com.jonghoonpark'
 version = '0.0.1-SNAPSHOT'
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.jonghoonpark'
+            artifactId = 'spring-http-logger'
+            version = '0.0.1'
+
+            from components.java
+        }
+    }
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -54,8 +66,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-checkstyle {
-    toolVersion = "9.3"
 }

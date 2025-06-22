@@ -38,7 +38,7 @@ public class ClientLoggerRequestInterceptor implements ClientHttpRequestIntercep
 
 		byte[] responseBody = response.getBody().readAllBytes();
 		if (responseBody.length > 0) {
-			logger.info("Response body: {}", new String(responseBody, StandardCharsets.UTF_8));
+			logger.info("Response body: {}", new String(responseBody, StandardCharsets.UTF_8).replaceAll("\\s+", " "));
 		}
 
 		return new BufferingClientHttpResponseWrapper(response, responseBody);
