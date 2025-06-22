@@ -1,0 +1,61 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.47")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.3'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'io.spring.javaformat' version '0.0.47'
+    id 'checkstyle'
+    id 'maven-publish'
+}
+
+checkstyle {
+    toolVersion = "9.3"
+}
+
+group = 'com.jonghoonpark'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    checkstyle("io.spring.javaformat:spring-javaformat-checkstyle:0.0.47")
+
+    implementation 'org.springframework:spring-web:6.2.8'
+    implementation 'org.springframework:spring-webflux:6.2.8'
+    implementation 'org.springframework:spring-webmvc:6.2.8'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+    implementation 'io.projectreactor:reactor-core:3.7.6'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testCompileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    testImplementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.42'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.18'
+    testImplementation 'io.projectreactor.netty:reactor-netty:1.2.7'
+    testImplementation 'io.projectreactor:reactor-test:3.7.6'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = "9.3"
+}
