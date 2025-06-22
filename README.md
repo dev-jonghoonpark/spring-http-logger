@@ -2,6 +2,24 @@
 
 This library assists logging for Spring HTTP clients (RestClient, WebClient).
 
+## Download
+
+### gradle
+
+```groovy
+implementation 'com.jonghoonpark:spring-http-logger:1.0.0'
+```
+
+### maven
+
+```xml
+<dependency>
+    <groupId>com.jonghoonpark</groupId>
+    <artifactId>spring-http-logger</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 ## How to use
 
 ### http client
@@ -10,7 +28,8 @@ Use `ClientLoggerRequestInterceptor`.
 
 ```java
 RestClient restClient = RestClient.builder()
-    .requestInterceptor(new ClientLoggerRequestInterceptor());
+    .requestInterceptor(new ClientLoggerRequestInterceptor())
+    .build();
 ```
 
 ### web client (reactive)
@@ -24,7 +43,14 @@ WebClient webClient = WebClient.builder()
     .build();
 ```
 
-The `HttpClient` used in this code is part of `reactor-netty`. You might need to add it as a dependency.
+### logging config
+
+Request/response bodies are configured to be logged at the INFO level.
+If you also want to see request/response headers, set the logging level to DEBUG.
+
+```
+logging.level.com.jonghoonpark=debug
+```
 
 ## reference
 - 
